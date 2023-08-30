@@ -1,9 +1,9 @@
 #!/bin/bash
 
 DATE=$(date +%F)
-LOGSDIR=/temp
+LOGSDIR=$LOGFILE/$0-$DATE.log
 SCRIPT_NAME=$0
-LOGFILE=$LOGSDIR/$0-$DATE.log
+LOGFILE=/tmp
 
 USERID=$(id -u)
 R="\e[31m"
@@ -27,20 +27,20 @@ VALIDATE(){
    fi
 }
 
-cp mongo.repo /etc/yum.repos.d/mongo.repo
+cp mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGSDIR
 VALIDATE $? "copied repo to yum.repos.d"
 
-yum install mongodb-org -y &>> $LOGFILE
+yum install mongodb-org -y &>> $LOGSDIR
 VALIDATE $? "Installed"
 
-systemctl enable mongod &>> $LOGFILE
+systemctl enable mongod &>> $LOGSDIR
 VALIDATE $? "Enabled"
 
-systemctl start mongod &>> $LOGFILE
+systemctl start mongod &>> $LOGSDIR
 VALIDATE $? "Started"
 
-sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf &>> $LOGFILE
+sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf &>> $LOGSDIR
 VALIDATE $? "Updated"
 
-systemctl restart mongod &>> $LOGFILE
+systemctl restart mongod &>> $LOGSDIR
 VALIDATE $? "Restarted"
