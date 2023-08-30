@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DATE=$(date +%F)
-LOGSDIR=/temp/
+LOGSDIR=/temp
 SCRIPT_NAME=$0
 LOGFILE=$LOGSDIR/$0-$DATE.log
 
