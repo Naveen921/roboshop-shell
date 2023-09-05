@@ -53,7 +53,7 @@ npm install &>>$LOGSDIR
 VALIDATE $? "installing dependencies"
 
 # give full path of catalogue.service because we are inside /app
-cp home/centos/roboshop-shell/catlogue.service  /etc/systemd/system/catalogue.service &>>$LOGSDIR
+cp /home/centos/roboshop-shell/catalogue.service  /etc/systemd/system/catalogue.service &>>$LOGSDIR
 VALIDATE $? "copying catalogue service"
 
 systemctl daemon-reload &>>$LOGSDIR
